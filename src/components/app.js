@@ -16,6 +16,8 @@ export default class App extends Component {
 		this.currentUrl = e.url
 	}
 
+	componentDidMount() {}
+
 	render() {
 		return (
 			<div id="app">
