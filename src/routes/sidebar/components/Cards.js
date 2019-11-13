@@ -1,6 +1,13 @@
 import { h, Component, createRef } from 'preact';
 import style from './style';
 import svgToDataURL from 'mini-svg-data-uri';
+import htmlToImage from 'html-to-image';
+
+async function asyncForEach(array, callback) {
+	for (let index = 0; index < array.length; index++) {
+		await callback(array[index], index, array);
+	}
+}
 
 const svg =
 	'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M22 38V51L32 32l19-19v12C44 26 43 10 38 0 52 15 49 39 22 38z"/></svg>';
@@ -25,6 +32,7 @@ const Card = ({ label, value }) => (
 	<div class={style.cardWrapper}>
 		<button
 			class={style.card}
+			data-value={value}
 			data-image-url="https://1556ec3d.ngrok.io/assets/icons/android-chrome-512x512.png"
 		>
 			<h4>{label}</h4>
@@ -51,11 +59,12 @@ export default class Cards extends Component {
 			getDraggableItemPreview: el => {
 				console.log('getDraggableItemPreview', el, optimizedSVGDataURI);
 				currentShapeText = el.innerText;
+
 				return {
 					width: 100,
 					height: 100,
 					backgroundColor: '#ffdd00',
-					url: optimizedSVGDataURI,
+					url: this.svgMap.get(el.dataset.value),
 				};
 			},
 			onDrop: (canvasX, canvasY) => {
@@ -66,7 +75,17 @@ export default class Cards extends Component {
 	};
 
 	componentDidMount() {
+		const filter = node => node.tagName !== 'CODE';
 		miro.onReady(this.onReady);
+		this.svgMap = new Map();
+		const cardsCollection = this.ref.current.getElementsByClassName(
+			style.card
+		);
+		asyncForEach(cardsCollection, async theCard => {
+			const { value } = theCard.dataset;
+			const url = await htmlToImage.toSvgDataURL(theCard, { filter });
+			this.svgMap.set(value, url);
+		});
 	}
 
 	render() {
