@@ -1,45 +1,52 @@
-import { h, Component, createRef } from 'preact';
+/* eslint-disable brace-style */
+import { h, Fragment, Component, createRef } from 'preact';
 import style from './style';
-import svgToDataURL from 'mini-svg-data-uri';
-import htmlToImage from 'html-to-image';
+import Controls from 'components/Controls';
+import getCardURL from 'utils/getCardURL';
+const svgToMiniDataURI = require('mini-svg-data-uri');
+import backSvg from 'assets/cards/back.svg';
+import { getMetadata, updateMetadata } from 'utils/metadata';
 
-async function asyncForEach(array, callback) {
-	for (let index = 0; index < array.length; index++) {
-		await callback(array[index], index, array);
-	}
-}
+// eslint-disable-next-line no-magic-numbers
+const RATIO = 3 / 2;
+const WIDTH = 100;
 
-const svg =
-	'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M22 38V51L32 32l19-19v12C44 26 43 10 38 0 52 15 49 39 22 38z"/></svg>';
-
-const optimizedSVGDataURI = svgToDataURL(svg);
-
-function createShape(canvasX, canvasY, color, text) {
+function createImage({ x, y, url, metadata }) {
 	return miro.board.widgets.create({
-		type: 'shape',
-		text,
-		x: canvasX,
-		y: canvasY,
-		style: {
-			textColor: '#fff',
-			backgroundColor: color,
-			borderColor: 'transparent',
+		type: 'image',
+		url,
+		x,
+		y,
+		capabilities: {
+			editable: false,
+		},
+		metadata: {
+			[process.env.APP_ID]: metadata,
 		},
 	});
 }
 
-const Card = ({ label, value }) => (
-	<div class={style.cardWrapper}>
-		<button
-			class={style.card}
-			data-value={value}
-			data-image-url="https://1556ec3d.ngrok.io/assets/icons/android-chrome-512x512.png"
-		>
-			<h4>{label}</h4>
-			<code>{value}</code>
-		</button>
-	</div>
-);
+const Card = ({ label, value }) => {
+	const url = getCardURL('face', value);
+	return (
+		<div class={style.cardWrapper}>
+			<button
+				class={style.card}
+				data-value={value}
+				type="button"
+				style={{
+					backgroundImage: `url(${url})`,
+				}}
+				data-image-url={url}
+			/>
+		</div>
+	);
+};
+
+const getCards = async () => {
+	const widgets = await miro.board.widgets.get();
+	return widgets.filter(widget => getMetadata(widget).type === 'card');
+};
 
 export default class Cards extends Component {
 	state = {
@@ -50,56 +57,89 @@ export default class Cards extends Component {
 	ref = createRef();
 
 	onReady = () => {
-		let currentShapeText;
+		let cardValue;
 		miro.board.ui.initDraggableItemsContainer(this.ref.current, {
 			draggableItemSelector: `.${style.card}`,
 			onClick: el => {
+				cardValue = el.dataset.value;
 				console.log(el);
 			},
 			getDraggableItemPreview: el => {
-				console.log('getDraggableItemPreview', el, optimizedSVGDataURI);
-				currentShapeText = el.innerText;
-
+				cardValue = el.dataset.value;
 				return {
-					width: 100,
-					height: 100,
-					backgroundColor: '#ffdd00',
-					url: this.svgMap.get(el.dataset.value),
+					width: el.offsetWidth,
+					height: el.offsetWidth * RATIO,
+					background: '#ccc',
+					url: svgToMiniDataURI(backSvg),
 				};
 			},
-			onDrop: (canvasX, canvasY) => {
-				console.log('onDrop 2');
-				createShape(canvasX, canvasY, '#cccc55', currentShapeText);
+			onDrop: async (x, y) => {
+				const url = getCardURL('back');
+				const metadata = {
+					type: 'card',
+					side: 'back',
+					value: cardValue,
+					author: this.state.id,
+				};
+				const added = await createImage({
+					x,
+					y,
+					url,
+					metadata,
+				});
+				console.log(added);
 			},
 		});
 	};
 
-	componentDidMount() {
-		const filter = node => node.tagName !== 'CODE';
-		miro.onReady(this.onReady);
-		this.svgMap = new Map();
-		const cardsCollection = this.ref.current.getElementsByClassName(
-			style.card
+	handleReveal = async () => {
+		const cards = await getCards();
+
+		const backCards = cards.filter(
+			widget => getMetadata(widget).side === 'back'
 		);
-		asyncForEach(cardsCollection, async theCard => {
-			const { value } = theCard.dataset;
-			const url = await htmlToImage.toSvgDataURL(theCard, { filter });
-			this.svgMap.set(value, url);
+
+		const updates = backCards.map(widget => {
+			const { id } = widget;
+			const { value } = getMetadata(widget);
+			return {
+				id,
+				metadata: updateMetadata(widget, {
+					side: 'face',
+				}),
+				url: getCardURL('face', value),
+			};
 		});
+		await miro.board.widgets.update(updates);
+		console.log('Done!');
+	};
+
+	async componentDidMount() {
+		const id = await miro.currentUser.getId();
+		// eslint-disable-next-line react/no-did-mount-set-state
+		this.setState({ id });
+		miro.onReady(this.onReady);
 	}
 
 	render() {
 		return (
-			<div ref={this.ref} class={style.wrapper}>
-				{CARDS_DATA.map(({ label, value }) => (
-					<Card key={value} label={label} value={value} />
-				))}
-			</div>
+			<Fragment>
+				<Controls onReveal={this.handleReveal} />
+				<div ref={this.ref} class={style.wrapper}>
+					{CARDS_DATA.map(({ label, value }) => (
+						<Card key={value} label={label} value={value} />
+					))}
+				</div>
+			</Fragment>
 		);
 	}
 }
 
 const CARDS_DATA = [
+	{
+		label: '0',
+		value: 0,
+	},
 	{
 		label: '1/2',
 		value: 0.5,
@@ -135,5 +175,13 @@ const CARDS_DATA = [
 	{
 		label: '100',
 		value: 100,
+	},
+	{
+		label: 'coffee',
+		value: 'coffee',
+	},
+	{
+		label: 'infinity',
+		value: 'infinity',
 	},
 ];

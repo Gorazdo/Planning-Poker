@@ -7,65 +7,50 @@
 .cardWrapper {
 	flex-grow: 1;
 	flex-basis: 33%;
-	margin-top: 1rem;
-	margin-bottom: 1rem;
+	padding: 1rem;
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	position: relative;
-	h4 {
-		font-size: 2em;
-		width: 100%;
-		margin: 0;
-		text-align: center;
-	}
-	code {
-		position: absolute;
-		font-family: monospace;
-		right: 0;
-		opacity: 0;
-		top: 0;
-	}
 }
+
 @keyframes floating {
 	from {
 		transform: translate(0, 0px);
-		box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4), inset 0 0 0 0.5em #fff;
+		box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
 	}
 	65% {
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 0 0 0.5em #fff;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 		transform: translate(0, -2px);
 	}
 	to {
 		transform: translate(0, -0px);
-		box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4), inset 0 0 0 0.5em #fff;
+		box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
 	}
 }
 
-@size: 2.2;
 .card {
 	display: flex;
-	width: @size * 3rem;
-	height: @size * 4rem;
+	width: 8em;
+	height: 12em;
+	border-radius: 1em;
+	font-size: 15px;
 	align-items: center;
 	justify-content: center;
-	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4), inset 0 0 0 0.5em #fff;
-	border-radius: 1em;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
 	will-change: transform;
 	transition: 200ms all;
 	border: none;
 	cursor: pointer;
 	&:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 0 0 0.5em #fff;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 	}
 	&:active {
 		transform: translateY(0);
-		box-shadow: 0 0px 1px rgba(0, 0, 0, 0.6), inset 0 0 0 0.5em #fff;
+		box-shadow: 0 0px 1px rgba(0, 0, 0, 0.6);
 	}
 	&:focus {
 		outline: none;
-		box-shadow: 0 4px 6px rgba(17, 17, 168, 0.6), inset 0 0 0 0.5em #fff;
+		box-shadow: 0 4px 6px rgba(17, 17, 168, 0.6);
 		animation-name: floating;
 		animation-duration: 3s;
 		animation-iteration-count: infinite;

@@ -1,0 +1,45 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 71.8187 80.4622">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #fff9df;
+      }
+
+      .cls-3 {
+        fill: #3e52d8;
+      }
+
+      .cls-4 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-5 {
+        fill: #ff6474;
+      }
+
+      .cls-6 {
+        fill: #050039;
+      }
+
+      .cls-7 {
+        fill: #ffd02f;
+      }
+    </style>
+    <clipPath id="clip-path" transform="translate(23.8187 8)">
+      <path class="cls-1" d="M26.01,8H1.99A1.99,1.99,0,0,0,0,9.99V46.01A1.99,1.99,0,0,0,1.99,48H26.01A1.99,1.99,0,0,0,28,46.01V9.99A1.99,1.99,0,0,0,26.01,8Z"/>
+    </clipPath>
+  </defs>
+  <title>Big_logo</title>
+  <rect class="cls-2" x="45.8187" y="10" width="24" height="36" rx="2.7619" ry="2.7619"/>
+  <path class="cls-3" d="M46.01,0H21.99A1.99,1.99,0,0,0,20,1.99V8h3V3H45V37H28v3H46.01A1.99,1.99,0,0,0,48,38.01V1.99A1.99,1.99,0,0,0,46.01,0Z" transform="translate(23.8187 8)"/>
+  <g class="cls-4">
+    <path class="cls-3" d="M26.01,8H1.99A1.99,1.99,0,0,0,0,9.99V46.01A1.99,1.99,0,0,0,1.99,48H26.01A1.99,1.99,0,0,0,28,46.01V9.99A1.99,1.99,0,0,0,26.01,8Z" transform="translate(23.8187 8)"/>
+    <circle class="cls-5" cx="52.0244" cy="15.7949" r="15.7946"/>
+    <circle class="cls-6" cx="0.4113" cy="48.2311" r="24.2311" transform="translate(-24.0027 56.3075) rotate(-89.6022)"/>
+    <path class="cls-7" d="M15.3115,48.42A15.0888,15.0888,0,1,1,.2225,33.33,15.0892,15.0892,0,0,1,15.3115,48.42Z" transform="translate(23.8187 8)"/>
+  </g>
+</svg>

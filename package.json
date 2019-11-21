@@ -4,19 +4,21 @@
 	"version": "0.0.0",
 	"license": "MIT",
 	"scripts": {
-		"start": "per-env",
-		"start:production": "npm run -s serve",
-		"start:development": "npm run -s dev",
+		"start": "npm run -s serve",
+		"start:dev": "npm run -s dev",
 		"build": "preact build --no-prerender --template src/index.ejs --clean --service-worker=false",
 		"serve": "preact build && serve build --single",
 		"dev": "preact watch --template src/index.ejs ",
 		"lint": "eslint src",
-		"test": "jest"
+		"test": "jest",
+		"ngrok": "../../../ngrok authtoken 1TUGhT7W5atNH7dv8FF344APhoY_3ucMLodhq2RzCYajoxLsn"
 	},
 	"eslintIgnore": [
 		"build/*"
 	],
 	"devDependencies": {
+		"babel-plugin-module-resolver": "^3.2.0",
+		"dotenv-webpack": "^1.7.0",
 		"enzyme": "^3.10.0",
 		"enzyme-adapter-preact-pure": "^2.0.0",
 		"eslint": "^6.0.1",
@@ -30,7 +32,8 @@
 		"per-env": "^1.0.2",
 		"preact-cli": "^3.0.0-rc.6",
 		"preact-render-spy": "^1.2.1",
-		"serve": "^11.1.0"
+		"serve": "^11.1.0",
+		"svg-inline-loader": "^0.8.0"
 	},
 	"dependencies": {
 		"html-to-image": "^0.1.1",
