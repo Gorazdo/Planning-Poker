@@ -20,7 +20,9 @@ export default class Cards extends Component {
 	state = {
 		time: Date.now(),
 		count: 10,
+		loading: true,
 		chosenCard: null,
+		showList: true,
 	};
 
 	ref = createRef();
@@ -44,6 +46,7 @@ export default class Cards extends Component {
 				};
 			},
 			onDrop: async (x, y) => {
+				this.hideList();
 				const metadata = {
 					type: 'card',
 					side: 'back',
@@ -65,11 +68,19 @@ export default class Cards extends Component {
 
 	setChosenCard = (widget, stateCallback) => {
 		const chosenCard = CARDS_MAP[getMetadata(widget).value];
-		this.setState({ chosenCard }, stateCallback);
+		this.setState({ chosenCard, showList: false }, stateCallback);
+	};
+
+	hideList = () => {
+		this.setState({ showList: false });
+	};
+
+	showList = () => {
+		this.setState({ showList: true });
 	};
 
 	clearChosenCard = stateCallback => {
-		this.setState({ chosenCard: null }, stateCallback);
+		this.setState({ chosenCard: null, showList: true }, stateCallback);
 	};
 
 	handleBeforeClear = async () => {
@@ -89,7 +100,7 @@ export default class Cards extends Component {
 			this.setChosenCard(myCard);
 		}
 		// eslint-disable-next-line react/no-did-mount-set-state
-		this.setState({ id }, () => {
+		this.setState({ id, loading: false }, () => {
 			miro.onReady(this.onReady);
 		});
 	}
@@ -104,7 +115,7 @@ export default class Cards extends Component {
 					/>
 				</div>
 				<div ref={this.ref} class={style.wrapper}>
-					{!this.state.chosenCard && <CardsList />}
+					{this.state.showList && !this.state.loading && <CardsList />}
 				</div>
 				{Boolean(this.state.chosenCard) && (
 					<ChosenCard {...this.state.chosenCard} />

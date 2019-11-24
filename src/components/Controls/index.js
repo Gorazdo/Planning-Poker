@@ -50,7 +50,9 @@ class Controls extends Component {
 	};
 
 	handleClear = async event => {
-		this.props.onBeforeClear(event);
+		if (typeof this.props.onBeforeClear === 'function') {
+			this.props.onBeforeClear(event);
+		}
 
 		const cards = await getCards();
 
@@ -61,7 +63,9 @@ class Controls extends Component {
 			allCards.map(widget => miro.board.widgets.deleteById(widget.id))
 		);
 		console.log('deleted', deleted.length, 'cards');
-		this.props.onClear();
+		if (typeof this.props.onClear === 'function') {
+			this.props.onClear();
+		}
 	};
 
 	render() {

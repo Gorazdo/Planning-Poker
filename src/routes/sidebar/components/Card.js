@@ -13,7 +13,7 @@ class Card extends Component {
 		this.setState({ loaded: true });
 	};
 
-	render({ value, label, index, cards = [] }) {
+	render({ value, disabled, label, index, cards = [] }) {
 		const url = getCardURL('face', value);
 		const delay = (cards.length - index) * DELAY_ANIMATION;
 
@@ -22,6 +22,7 @@ class Card extends Component {
 				<button
 					class={style.card}
 					title={label}
+					disabled={Boolean(disabled)}
 					data-loaded={this.state.loaded ? 'yes' : 'no'}
 					data-value={value}
 					type="button"
