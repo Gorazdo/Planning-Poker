@@ -1,9 +1,3 @@
-.wrapper {
-	padding: 0.5rem 0.4rem;
-	display: flex;
-	flex-wrap: wrap;
-}
-
 .cardWrapper {
 	flex-grow: 1;
 	flex-basis: 33.3%;
@@ -47,7 +41,7 @@
 	width: 8em;
 	height: 12em;
 	border-radius: 1em;
-	font-size: 10px;
+	font-size: 1em;
 	align-items: center;
 	background-color: transparent;
 	justify-content: center;
@@ -80,6 +74,11 @@
 			font-size: large;
 		}
 	}
+	&[data-loaded='yes'] {
+		span {
+			opacity: 0;
+		}
+	}
 }
 
 .hiddenImg {
@@ -95,6 +94,14 @@
 	padding: 1rem;
 	align-items: center;
 	flex-direction: column;
+	font-size: 20px;
+}
+
+.wrapper {
+	padding: 0.5rem 0.4rem;
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 10px;
 }
 
 .controlsWrapper {

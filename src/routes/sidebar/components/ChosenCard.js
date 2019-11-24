@@ -4,7 +4,7 @@ import style from './style';
 
 const ChosenCard = ({ value, label, handleClear }) => (
 	<section class={style.chosenCardWrapper}>
-		<h4 class="miro-h4">Your card</h4>
+		<h4 class="miro-h2">Your card</h4>
 
 		<Card value={value} label={label} />
 

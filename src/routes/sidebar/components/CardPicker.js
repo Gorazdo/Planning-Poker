@@ -10,23 +10,11 @@ import ChosenCard from './ChosenCard';
 import { CARDS_MAP } from 'constatns';
 import getCards from 'utils/getCards';
 import createCard from 'utils/createCard';
+import createShape from 'utils/createShape';
 
 // eslint-disable-next-line no-magic-numbers
 const RATIO = 3 / 2;
 const WIDTH = 100;
-function createShape(canvasX, canvasY, color, text) {
-	return miro.board.widgets.create({
-		type: 'shape',
-		text,
-		x: canvasX,
-		y: canvasY,
-		style: {
-			textColor: '#fff',
-			backgroundColor: '#' + color,
-			borderColor: 'transparent',
-		},
-	});
-}
 
 export default class Cards extends Component {
 	state = {
@@ -80,48 +68,15 @@ export default class Cards extends Component {
 		this.setState({ chosenCard }, stateCallback);
 	};
 
-	handleReveal = async () => {
-		const cards = await getCards();
-
-		const backCards = cards.filter(
-			widget => getMetadata(widget).side === 'back'
-		);
-		const { x, y } = backCards.reduce(
-			(acc, widget, index, { length }) => {
-				acc.x = acc.x + widget.x / length;
-				acc.y = Math.max(acc.y, widget.y);
-				return acc;
-			},
-			{ x: 0, y: 0 }
-		);
-		console.log(x, y);
-		const result = backCards.reduce((acc, widget) => {
-			const { value } = getMetadata(widget);
-			if (value in acc) {
-				acc[value]++;
-			} else {
-				acc[value] = 1;
-			}
-
-			return acc;
-		}, {});
-
-		createShape(x, y, '#ccc', JSON.stringify(result));
-
-		const updates = backCards.map(widget => {
-			const { id } = widget;
-			const { value } = getMetadata(widget);
-			return {
-				id,
-				metadata: updateMetadata(widget, {
-					side: 'face',
-				}),
-				url: getCardURL('face', value),
-			};
-		});
-		await miro.board.widgets.update(updates);
-		console.log(result, 'Done!');
+	clearChosenCard = stateCallback => {
+		this.setState({ chosenCard: null }, stateCallback);
 	};
+
+	handleBeforeClear = async () => {
+		this.clearChosenCard();
+	};
+
+	handleReveal = async () => {};
 
 	async componentDidMount() {
 		const [id, cards] = await Promise.all([
@@ -143,12 +98,17 @@ export default class Cards extends Component {
 		return (
 			<Fragment>
 				<div class={style.controlsWrapper}>
-					<Controls onReveal={this.handleReveal} />
+					<Controls
+						onReveal={this.handleReveal}
+						onBeforeClear={this.handleBeforeClear}
+					/>
 				</div>
 				<div ref={this.ref} class={style.wrapper}>
-					<CardsList />
+					{!this.state.chosenCard && <CardsList />}
 				</div>
-				{this.state.chosenCard && <ChosenCard {...this.state.chosenCard} />}
+				{Boolean(this.state.chosenCard) && (
+					<ChosenCard {...this.state.chosenCard} />
+				)}
 			</Fragment>
 		);
 	}
