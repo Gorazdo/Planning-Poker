@@ -1,15 +1,30 @@
 .wrapper {
-	padding: 1rem;
+	padding: 0.5rem 0.4rem;
 	display: flex;
 	flex-wrap: wrap;
 }
 
 .cardWrapper {
 	flex-grow: 1;
-	flex-basis: 33%;
-	padding: 1rem;
+	flex-basis: 33.3%;
+	padding: 0.5rem;
 	display: flex;
 	justify-content: center;
+
+	animation-name: appear;
+	animation-duration: 600ms;
+	animation-timing-function: ease-out;
+}
+
+@keyframes appear {
+	from {
+		opacity: 0;
+		transform: scale(0.5);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
 }
 
 @keyframes floating {
@@ -32,8 +47,9 @@
 	width: 8em;
 	height: 12em;
 	border-radius: 1em;
-	font-size: 15px;
+	font-size: 10px;
 	align-items: center;
+	background-color: transparent;
 	justify-content: center;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
 	will-change: transform;
@@ -56,4 +72,32 @@
 		animation-iteration-count: infinite;
 		animation-timing-function: ease-in-out;
 	}
+	&[data-loaded='no'] {
+		border: 2px solid #3e52d8;
+		background-color: #fff9df;
+		opacity: 0.5;
+		span {
+			font-size: large;
+		}
+	}
+}
+
+.hiddenImg {
+	opacity: 0;
+	position: absolute;
+	width: 0px;
+	height: 0px;
+	z-index: -1;
+}
+
+.chosenCardWrapper {
+	display: flex;
+	padding: 1rem;
+	align-items: center;
+	flex-direction: column;
+}
+
+.controlsWrapper {
+	padding: 1rem;
+	padding-bottom: 0.5rem;
 }

@@ -18,6 +18,14 @@ export default (config, env, helpers, options) => {
 		},
 	});
 
+	config.devServer = {
+		...config.devServer,
+		headers: {
+			...config.devServer.headers,
+			'Access-Control-Allow-Origin': '*',
+		},
+	};
+
 	config.plugins.push(new Dotenv());
 	config.resolve.modules.push(env.src); // babel-module-resolver
 	config.node.process = true;

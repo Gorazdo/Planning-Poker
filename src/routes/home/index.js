@@ -15,6 +15,7 @@ class Home extends Component {
 						librarySvgIcon: icon48,
 						onClick() {
 							miro.board.openLibrary('Poker Planning', 'sidebar');
+							miro.board.ui.openBottomPanel('bottomPanel', { width: 188 });
 						},
 					},
 				},

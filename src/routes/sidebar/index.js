@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 import style from './style';
-import Cards from './components/Cards';
+import CardPicker from './components/CardPicker';
 
 export default class Sidebar extends Component {
 	state = {
@@ -32,7 +32,7 @@ export default class Sidebar extends Component {
 	render({ user }, { time, count }) {
 		return (
 			<div class={style.sidebar}>
-				<Cards />
+				<CardPicker />
 			</div>
 		);
 	}
