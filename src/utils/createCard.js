@@ -1,4 +1,4 @@
-import { APP_ID } from 'constatns';
+import { APP_ID } from 'appconstants';
 
 const X_STEP = 10;
 const Y_STEP = 20;

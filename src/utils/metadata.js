@@ -1,4 +1,4 @@
-import { APP_ID } from 'constatns';
+import { APP_ID } from 'appconstants';
 
 export const getMetadata = (widget, appId = APP_ID) => {
 	if (!appId) {

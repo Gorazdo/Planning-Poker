@@ -1,38 +1,20 @@
+/* eslint-disable brace-style */
 import { h, Component } from 'preact';
 import style from './style';
 import getCards from 'utils/getCards';
 import { getMetadata, updateMetadata } from 'utils/metadata';
-import createShape from 'utils/createShape';
 import getCardURL from 'utils/getCardURL';
 
 class Controls extends Component {
 	handleReveal = async event => {
-		this.props.onBeforeReveal(event);
+		if (typeof this.props.onBeforeReveal === 'function') {
+			this.props.onBeforeReveal(event);
+		}
 		const cards = await getCards();
 
 		const backCards = cards.filter(
 			widget => getMetadata(widget).side === 'back'
 		);
-		const { x, y } = backCards.reduce(
-			(acc, widget, index, { length }) => {
-				acc.x = acc.x + widget.x / length;
-				acc.y = Math.max(acc.y, widget.y);
-				return acc;
-			},
-			{ x: 0, y: 0 }
-		);
-		const result = backCards.reduce((acc, widget) => {
-			const { value } = getMetadata(widget);
-			if (value in acc) {
-				acc[value]++;
-			} else {
-				acc[value] = 1;
-			}
-
-			return acc;
-		}, {});
-
-		createShape(x, y, '#ccc', JSON.stringify(result));
 
 		const updates = backCards.map(widget => {
 			const { id } = widget;
@@ -46,7 +28,9 @@ class Controls extends Component {
 			};
 		});
 		await miro.board.widgets.update(updates);
-		this.props.onReveal();
+		if (typeof this.props.onReveal === 'function') {
+			this.props.onReveal();
+		}
 	};
 
 	handleClear = async event => {
@@ -56,12 +40,12 @@ class Controls extends Component {
 
 		const cards = await getCards();
 
-		const allCards = cards.filter(
-			widget => getMetadata(widget).type === 'card'
-		);
-		const deleted = await Promise.all(
-			allCards.map(widget => miro.board.widgets.deleteById(widget.id))
-		);
+		const allCardIds = cards
+			.filter(widget => getMetadata(widget).type === 'card')
+			.map(widget => widget.id);
+
+		const deleted = miro.board.widgets.deleteById(allCardIds);
+
 		console.log('deleted', deleted.length, 'cards');
 		if (typeof this.props.onClear === 'function') {
 			this.props.onClear();
@@ -91,3 +75,28 @@ class Controls extends Component {
 }
 
 export default Controls;
+
+/*
+const roundResults = backCards =>
+	backCards.reduce((acc, widget) => {
+		const { value } = getMetadata(widget);
+		if (value in acc) {
+			acc[value]++;
+		} else {
+			acc[value] = 1;
+		}
+
+		return acc;
+	}, {});
+
+const resultShapePoint = backCards =>
+	backCards.reduce(
+		(acc, widget, index, { length }) => {
+			acc.x = acc.x + widget.x / length;
+			acc.y = Math.max(acc.y, widget.y);
+			return acc;
+		},
+		{ x: 0, y: 0 }
+	);
+
+	*/

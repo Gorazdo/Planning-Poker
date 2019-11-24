@@ -4,6 +4,11 @@ import style from './style';
 import icon24 from '../../assets/icons/icon24.svg';
 import icon48 from '../../assets/icons/icon48.svg';
 
+const startApp = () => {
+	miro.board.openLibrary('Poker Planning', 'sidebar');
+	miro.board.ui.openBottomPanel('bottomPanel', { width: 208 });
+};
+
 class Home extends Component {
 	componentDidMount() {
 		miro.onReady(() => {
@@ -13,9 +18,16 @@ class Home extends Component {
 						title: 'Poker Planning',
 						toolbarSvgIcon: icon24,
 						librarySvgIcon: icon48,
-						onClick() {
-							miro.board.openLibrary('Poker Planning', 'sidebar');
-							miro.board.ui.openBottomPanel('bottomPanel', { width: 208 });
+						onClick: async () => {
+							const authorized = await miro.isAuthorized();
+							if (authorized) {
+								startApp();
+							} else {
+								const res = await miro.board.ui.openModal('authorize');
+								if (res === 'success') {
+									startApp();
+								}
+							}
 						},
 					},
 				},
