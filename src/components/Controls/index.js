@@ -67,7 +67,7 @@ class Controls extends Component {
 					type="button"
 					onClick={this.handleClear}
 				>
-					Clear
+					Clear all
 				</button>
 			</nav>
 		);

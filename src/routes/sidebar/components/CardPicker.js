@@ -66,6 +66,18 @@ export default class Cards extends Component {
 	setChosenCard = (widget, stateCallback) => {
 		const chosenCard = CARDS_MAP[getMetadata(widget).value];
 		this.setState({ chosenCard, showList: false }, stateCallback);
+		this.updateChosenCard(widget.id);
+	};
+
+	updateChosenCard = async id => {
+		try {
+			// if it's updating -- it exists
+			await miro.board.widgets.update([{ id }]);
+			setTimeout(this.updateChosenCard, 1000, id);
+		} catch (error) {
+			// if it's an error -- it does not exist
+			this.clearChosenCard();
+		}
 	};
 
 	hideList = () => {
@@ -99,6 +111,9 @@ export default class Cards extends Component {
 			// eslint-disable-next-line react/no-did-mount-set-state
 			this.setState({ id, loading: false }, () => {
 				miro.onReady(this.onReady);
+				// const { WIDGETS_DELETED } = miro.enums.event;
+				// console.log(WIDGETS_DELETED);
+				// miro.addListener(WIDGETS_DELETED, this.onWidgetsDeleted);
 			});
 		} catch (error) {
 			console.error(error);
@@ -106,6 +121,18 @@ export default class Cards extends Component {
 			this.setState({
 				error: error.toString(),
 			});
+		}
+	};
+
+	onWidgetsDeleted = event => {
+		const { data: widgets } = event;
+		console.log(widgets);
+		const { chosenCard } = this.state;
+		if (!chosenCard) {
+			return false;
+		}
+		if (widgets.find(widget => widget.id === chosenCard.id)) {
+			this.clearChosenCard();
 		}
 	};
 
