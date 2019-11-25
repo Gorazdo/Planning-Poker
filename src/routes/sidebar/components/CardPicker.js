@@ -66,14 +66,14 @@ export default class Cards extends Component {
 	setChosenCard = (widget, stateCallback) => {
 		const chosenCard = CARDS_MAP[getMetadata(widget).value];
 		this.setState({ chosenCard, showList: false }, stateCallback);
-		this.updateChosenCard(widget.id);
+		this.checkCardExistence(widget.id);
 	};
 
-	updateChosenCard = async id => {
+	checkCardExistence = async id => {
 		try {
 			// if it's updating -- it exists
 			await miro.board.widgets.update([{ id }]);
-			setTimeout(this.updateChosenCard, 1000, id);
+			setTimeout(this.checkCardExistence, 1000, id);
 		} catch (error) {
 			// if it's an error -- it does not exist
 			this.clearChosenCard();
