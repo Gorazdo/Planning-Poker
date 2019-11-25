@@ -1,4 +1,4 @@
-import { h, Fragment, Component, createRef } from 'preact';
+import { h, Fragment } from 'preact';
 import Card from './Card';
 import { CARDS_LIST } from 'appconstants';
 

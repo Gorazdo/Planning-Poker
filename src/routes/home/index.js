@@ -1,8 +1,8 @@
 import { h, Component } from 'preact';
 import style from './style';
 
-import icon24 from '../../assets/icons/icon24.svg';
-import icon48 from '../../assets/icons/icon48.svg';
+import icon24 from 'assets/icons/icon24.svg';
+import icon48 from 'assets/icons/icon48.svg';
 
 const startApp = () => {
 	miro.board.openLibrary('Poker Planning', 'sidebar');

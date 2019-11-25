@@ -9,7 +9,7 @@ class Card extends Component {
 		loaded: false,
 	};
 
-	handleLoad = e => {
+	handleLoad = () => {
 		this.setState({ loaded: true });
 	};
 

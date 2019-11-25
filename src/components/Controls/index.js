@@ -1,4 +1,3 @@
-/* eslint-disable brace-style */
 import { h, Component } from 'preact';
 import style from './style';
 import getCards from 'utils/getCards';
@@ -46,6 +45,7 @@ class Controls extends Component {
 
 		const deleted = miro.board.widgets.deleteById(allCardIds);
 
+		// eslint-disable-next-line no-console
 		console.log('deleted', deleted.length, 'cards');
 		if (typeof this.props.onClear === 'function') {
 			this.props.onClear();

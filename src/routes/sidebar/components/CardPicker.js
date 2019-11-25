@@ -1,4 +1,3 @@
-/* eslint-disable brace-style */
 import { h, Fragment, Component, createRef } from 'preact';
 import style from './style';
 import Controls from 'components/Controls';
@@ -13,7 +12,7 @@ import Placeholder from 'components/Placeholder';
 
 // eslint-disable-next-line no-magic-numbers
 const RATIO = 3 / 2;
-const WIDTH = 100;
+// const WIDTH = 100;
 
 export default class Cards extends Component {
 	state = {
@@ -34,7 +33,6 @@ export default class Cards extends Component {
 			draggableItemSelector: `.${style.card}`,
 			onClick: el => {
 				cardValue = el.dataset.value;
-				console.log(el);
 			},
 			getDraggableItemPreview: el => {
 				url = getBackCardUrl();
@@ -59,7 +57,6 @@ export default class Cards extends Component {
 					url,
 					metadata,
 				});
-				console.log(added);
 				const [card] = added;
 				this.setChosenCard(card);
 			},
@@ -95,7 +92,6 @@ export default class Cards extends Component {
 				miro.currentUser.getId(),
 				getCards(),
 			]);
-			console.log(cards, id);
 			const myCard = cards.find(widget => getMetadata(widget).author === id);
 			if (myCard) {
 				this.setChosenCard(myCard);

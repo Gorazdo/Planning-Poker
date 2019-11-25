@@ -11,12 +11,13 @@ const authorizeOptions = {
 class Authorizer extends Component {
 	ref = createRef();
 
-	handleAuthorize = async event => {
+	handleAuthorize = async () => {
 		await miro.authorize(authorizeOptions);
 		const token = await miro.getToken();
 		if (token) {
 			miro.board.ui.closeModal('success');
 		} else {
+			// eslint-disable-next-line no-console
 			console.log('Something went wrong');
 		}
 	};
