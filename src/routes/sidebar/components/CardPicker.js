@@ -5,7 +5,6 @@ import { getMetadata } from 'utils/metadata';
 import getBackCardUrl from 'utils/getBackCardUrl';
 import CardsList from './CardsList';
 import ChosenCard from './ChosenCard';
-import { CARDS_MAP } from 'appconstants';
 import getCards from 'utils/getCards';
 import createCard from 'utils/createCard';
 import Placeholder from 'components/Placeholder';
@@ -20,7 +19,7 @@ export default class Cards extends Component {
 		count: 10,
 		loading: true,
 		error: null,
-		chosenCard: null,
+		chosenCardWidget: null,
 		showList: true,
 	};
 
@@ -64,8 +63,8 @@ export default class Cards extends Component {
 	};
 
 	setChosenCard = (widget, stateCallback) => {
-		const chosenCard = CARDS_MAP[getMetadata(widget).value];
-		this.setState({ chosenCard, showList: false }, stateCallback);
+		const chosenCardWidget = widget;
+		this.setState({ chosenCardWidget, showList: false }, stateCallback);
 		this.checkCardExistence(widget.id);
 	};
 
@@ -89,7 +88,7 @@ export default class Cards extends Component {
 	};
 
 	clearChosenCard = stateCallback => {
-		this.setState({ chosenCard: null, showList: true }, stateCallback);
+		this.setState({ chosenCardWidget: null, showList: true }, stateCallback);
 	};
 
 	handleBeforeClear = async () => {
@@ -127,11 +126,11 @@ export default class Cards extends Component {
 	onWidgetsDeleted = event => {
 		const { data: widgets } = event;
 		console.log(widgets);
-		const { chosenCard } = this.state;
-		if (!chosenCard) {
+		const { chosenCardWidget } = this.state;
+		if (!chosenCardWidget) {
 			return false;
 		}
-		if (widgets.find(widget => widget.id === chosenCard.id)) {
+		if (widgets.find(widget => widget.id === chosenCardWidget.id)) {
 			this.clearChosenCard();
 		}
 	};
@@ -140,7 +139,7 @@ export default class Cards extends Component {
 		this.init();
 	}
 
-	render({}, { chosenCard, showList, loading, error }) {
+	render({}, { chosenCardWidget, showList, loading, error }) {
 		if (error) {
 			return (
 				<Placeholder severity="error" title="An error occured">
@@ -157,9 +156,11 @@ export default class Cards extends Component {
 					/>
 				</div>
 				<div ref={this.ref} class={style.wrapper}>
-					{!chosenCard && !loading && <CardsList disabled={!showList} />}
+					{!chosenCardWidget && !loading && <CardsList disabled={!showList} />}
 				</div>
-				{Boolean(chosenCard) && <ChosenCard {...chosenCard} />}
+				{Boolean(chosenCardWidget) && (
+					<ChosenCard chosenCardWidget={chosenCardWidget} />
+				)}
 			</Fragment>
 		);
 	}
