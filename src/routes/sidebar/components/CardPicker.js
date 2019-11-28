@@ -98,6 +98,11 @@ export default class Cards extends Component {
 	handleReveal = async () => {};
 
 	init = async () => {
+		if (!miro.currentUser) {
+			return this.setState({
+				error: 'Seems like the app is running not as a part of Miro board',
+			});
+		}
 		try {
 			const [id, cards] = await Promise.all([
 				miro.currentUser.getId(),
@@ -125,7 +130,6 @@ export default class Cards extends Component {
 
 	onWidgetsDeleted = event => {
 		const { data: widgets } = event;
-		console.log(widgets);
 		const { chosenCardWidget } = this.state;
 		if (!chosenCardWidget) {
 			return false;
@@ -142,7 +146,7 @@ export default class Cards extends Component {
 	render({}, { chosenCardWidget, showList, loading, error }) {
 		if (error) {
 			return (
-				<Placeholder severity="error" title="An error occured">
+				<Placeholder severity="error" title="Oooops...">
 					<code>{error}</code>
 				</Placeholder>
 			);

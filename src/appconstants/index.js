@@ -42,12 +42,16 @@ export const CARDS_LIST = [
 		value: 100,
 	},
 	{
-		label: '☕',
-		value: 'coffee',
-	},
-	{
 		label: '∞',
 		value: 'infinity',
+	},
+	{
+		label: '?',
+		value: 'question',
+	},
+	{
+		label: '☕',
+		value: 'coffee',
 	},
 ];
 
