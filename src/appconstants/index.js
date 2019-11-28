@@ -1,5 +1,8 @@
 export const APP_ID = '3074457347007443177';
 
+// eslint-disable-next-line no-magic-numbers
+export const CARDS_BACK_INDEXES = [1, 2, 3, 4, 5, 6];
+
 export const CARDS_LIST = [
 	{
 		label: '0',
@@ -26,8 +29,12 @@ export const CARDS_LIST = [
 		value: 5,
 	},
 	{
-		label: '10',
-		value: 10,
+		label: '8',
+		value: 8,
+	},
+	{
+		label: '13',
+		value: 13,
 	},
 	{
 		label: '20',

@@ -8,6 +8,7 @@ import ChosenCard from './ChosenCard';
 import getCards from 'utils/getCards';
 import createCard from 'utils/createCard';
 import Placeholder from 'components/Placeholder';
+import CardBacksPreloader from './CardBacksPreloader';
 
 // eslint-disable-next-line no-magic-numbers
 const RATIO = 3 / 2;
@@ -165,6 +166,7 @@ export default class Cards extends Component {
 				{Boolean(chosenCardWidget) && (
 					<ChosenCard chosenCardWidget={chosenCardWidget} />
 				)}
+				<CardBacksPreloader />
 			</Fragment>
 		);
 	}
