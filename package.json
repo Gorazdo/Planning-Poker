@@ -6,12 +6,11 @@
 	"scripts": {
 		"start": "npm run -s serve",
 		"start:dev": "npm run -s dev",
-		"build": "preact build --no-prerender --template src/index.ejs --clean --service-worker=false",
+		"build": "preact build --template src/index.ejs",
 		"serve": "preact build && serve build --single",
 		"dev": "preact watch --template src/index.ejs ",
 		"lint": "eslint src",
-		"test": "jest",
-		"ngrok": "../../../ngrok authtoken 1TUGhT7W5atNH7dv8FF344APhoY_3ucMLodhq2RzCYajoxLsn"
+		"test": "jest"
 	},
 	"eslintIgnore": [
 		"build/*"

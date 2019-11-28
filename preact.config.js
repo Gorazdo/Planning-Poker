@@ -27,7 +27,9 @@ export default (config, env, helpers, options) => {
 			},
 		};
 	}
-
+	if (env.production) {
+		config.output.publicPath = './';
+	}
 	config.plugins.push(new Dotenv());
 	config.resolve.modules.push(env.src); // babel-module-resolver
 	config.node.process = true;
