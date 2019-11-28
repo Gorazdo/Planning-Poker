@@ -1,5 +1,6 @@
 const Dotenv = require('dotenv-webpack');
 
+// eslint-disable-next-line no-unused-vars
 export default (config, env, helpers, options) => {
 	const [urlLoader] = helpers.getRulesByMatchingFile(config, '.svg');
 	const { index: urlLoaderIndex } = urlLoader;

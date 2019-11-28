@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{bosY:function(e,n,o){"use strict";o.r(n);var r=o("hosL");n.default=class extends r.a{componentDidMount(){window.opener&&window.opener.miroAuthorized()}render(){return Object(r.f)("section",null,"Authorized!")}}}}]);
+//# sourceMappingURL=route-authorize-success.chunk.52a67.esm.js.map
