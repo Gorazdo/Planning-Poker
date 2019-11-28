@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import { Router } from 'preact-router';
+import { Router, route } from 'preact-router';
 
 // Code-splitting is automated for routes
 import Home from 'routes/home';
@@ -13,7 +13,13 @@ export default class App extends Component {
 		this.currentUrl = e.url;
 	};
 
-	componentDidMount() {}
+	componentDidMount() {
+		const path = localStorage.getItem('path');
+		if (path) {
+			localStorage.removeItem('path');
+			route(path, true);
+		}
+	}
 
 	render() {
 		return (
