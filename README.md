@@ -1,6 +1,5 @@
-# Planning Poker Widget for Miro
-
 ![img](https://repository-images.githubusercontent.com/221273648/47699c80-12ac-11ea-8ffb-072183c1cc47)
+# Planning Poker Widget for Miro
 
 ## What's inside?
 
