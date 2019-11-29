@@ -43,4 +43,5 @@ For detailed explanation on how things work, checkout the [CLI Readme](https://g
 ## Authors
 
 Coding and deploy: Pavel Shchegolev (me)
+
 Design and the idea: Ann Tomova [Behance](https://www.behance.net/tomova)
