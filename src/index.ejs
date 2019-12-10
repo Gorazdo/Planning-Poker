@@ -46,11 +46,11 @@
 				/*Fetch and Promise polyfills are not needed for browsers that support type=module
 				Please re-evaluate below line if adding more polyfills.*/
 			%>
-			<script nomodule src="<%= htmlWebpackPlugin.files.chunks["polyfills"].entry %>"></script>
-			<script nomodule defer src="<%= htmlWebpackPlugin.files.chunks['bundle'].entry %>"></script>
+			<script nomodule src='<%= htmlWebpackPlugin.files.chunks["polyfills"].entry %>'></script>
+			<script nomodule defer src='<%= htmlWebpackPlugin.files.chunks["bundle"].entry %>'></script>
 		<% } else { %>
-			<script <%= htmlWebpackPlugin.options.scriptLoading %>  src="<%= htmlWebpackPlugin.files.chunks['bundle'].entry %>"></script>
-			<script nomodule src="<%= htmlWebpackPlugin.files.chunks["polyfills"].entry %>"></script>
+			<script <%= htmlWebpackPlugin.options.scriptLoading %>  src='<%= htmlWebpackPlugin.files.chunks["bundle"].entry %>'>0</script>
+			<script nomodule src='<%= htmlWebpackPlugin.files.chunks["polyfills"].entry %>'></script>
 		<% } %>
 	</body>
 </html>
