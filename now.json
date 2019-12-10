@@ -1,0 +1,9 @@
+{
+	"version": 2,
+	"routes": [
+		{ "src": "/sidebar", "dest": "/index.html" },
+		{ "src": "/bottomPanel", "dest": "/index.html" },
+		{ "src": "/authorize", "dest": "/index.html" },
+		{ "src": "/authorize-success", "dest": "/index.html" }
+	]
+}
