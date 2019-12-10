@@ -52,7 +52,15 @@ class Controls extends Component {
 		}
 	};
 
-	render() {
+	handleClose = async () => {
+		try {
+			await miro.board.ui.closeBottomPanel();
+		} catch {
+			console.error('Something went wrong');
+		}
+	};
+
+	render({ showClose }) {
 		return (
 			<nav class={style.wrapper}>
 				<button
@@ -69,6 +77,17 @@ class Controls extends Component {
 				>
 					Clear all
 				</button>
+				{Boolean(showClose) && (
+					<button
+						class="miro-btn miro-btn--secondary-flat miro-btn--small"
+						type="button"
+						title="Close panel"
+						style={{ width: '36px', 'margin-left': '6px' }}
+						onClick={this.handleClose}
+					>
+						✖
+					</button>
+				)}
 			</nav>
 		);
 	}

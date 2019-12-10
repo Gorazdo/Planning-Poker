@@ -1,15 +1,25 @@
 import { h, Component } from 'preact';
-import style from './style';
 
 import icon24 from 'assets/icons/icon24.svg';
 import icon48 from 'assets/icons/icon48.svg';
+import AppWelcome from 'components/AppWelcome';
+import { APP_ID } from 'appconstants';
 
 const startApp = () => {
 	miro.board.openLibrary('Poker Planning', 'sidebar');
-	miro.board.ui.openBottomPanel('bottomPanel', { width: 208 });
+	miro.board.ui.openBottomPanel('bottomPanel', { width: 250 });
 };
 
 class Home extends Component {
+	get installationURL() {
+		const miroAuthURL = 'https://miro.com/oauth/authorize';
+		return `${miroAuthURL}?response_type=code&client_id=${APP_ID}&redirect_uri=${window.location.origin}/authorize-success&external=true`;
+	}
+
+	handleInstall = () => {
+		window.open(this.installationURL);
+	};
+
 	componentDidMount() {
 		miro.onReady(() => {
 			miro.initialize({
@@ -37,10 +47,15 @@ class Home extends Component {
 
 	render() {
 		return (
-			<div class={style.home}>
-				<h1>Home</h1>
-				<p>This is the Home component.</p>
-			</div>
+			<AppWelcome title="Planning Poker">
+				<button
+					type="button"
+					class="miro-btn miro-btn--primary miro-btn--medium"
+					onClick={this.handleInstall}
+				>
+					Install the plugin
+				</button>
+			</AppWelcome>
 		);
 	}
 }

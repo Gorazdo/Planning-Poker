@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 import { Router, route } from 'preact-router';
-
+import appStyle from './app.less';
 // Code-splitting is automated for routes
 import Home from 'routes/home';
 import Sidebar from 'routes/sidebar';
@@ -23,13 +23,15 @@ export default class App extends Component {
 
 	render() {
 		return (
-			<Router onChange={this.handleRoute}>
-				<Home path="/" />
-				<Sidebar path="/sidebar/" user="me" />
-				<BottomPanel path="/bottomPanel/" user="me" />
-				<Authorizer path="/authorize/" />
-				<AuthorizeSuccess path="/authorize-success/" />
-			</Router>
+			<div class={appStyle.wrapper}>
+				<Router onChange={this.handleRoute}>
+					<Home path="/" />
+					<Sidebar path="/sidebar/" user="me" />
+					<BottomPanel path="/bottomPanel/" user="me" />
+					<Authorizer path="/authorize/" />
+					<AuthorizeSuccess path="/authorize-success/" />
+				</Router>
+			</div>
 		);
 	}
 }

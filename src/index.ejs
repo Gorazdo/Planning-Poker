@@ -26,17 +26,13 @@
 			<% } %>
 		<% } %>
 	</head>
-	<style>
-		.preview,
-		.preview > div {
-			height: 100%;
-		}
-	</style>
 	<body>
+		<style>
+			.preview {
+				height: 100%;
+			}
+		</style>
 		<div data-widget-host="habitat" class="preview">
-			<script type="text/props">
-				{ "color": "red"}
-			</script>
 		</div>
 		<%= htmlWebpackPlugin.options.ssr() %>
 		<script type="__PREACT_CLI_DATA__">

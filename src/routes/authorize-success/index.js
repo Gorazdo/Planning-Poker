@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import AppWelcome from 'components/AppWelcome';
 
 class AuthorizeSuccess extends Component {
 	componentDidMount() {
@@ -8,7 +9,14 @@ class AuthorizeSuccess extends Component {
 	}
 
 	render() {
-		return <section>Authorized!</section>;
+		return (
+			<AppWelcome
+				title="Planning poker widget"
+				description="You can use the plugin now!"
+			>
+				<a href="https://miro.com/app/dashboard/">Go to Miro dashboard</a>
+			</AppWelcome>
+		);
 	}
 }
 

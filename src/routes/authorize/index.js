@@ -1,7 +1,6 @@
 /* eslint-disable brace-style */
-import { h, Component, createRef } from 'preact';
-import icon48 from 'assets/icons/icon48.svg';
-import style from './style';
+import { h, Component } from 'preact';
+import AppWelcome from 'components/AppWelcome';
 
 const authorizeOptions = {
 	response_type: 'token',
@@ -9,8 +8,6 @@ const authorizeOptions = {
 };
 
 class Authorizer extends Component {
-	ref = createRef();
-
 	handleAuthorize = async () => {
 		await miro.authorize(authorizeOptions);
 		const token = await miro.getToken();
@@ -22,22 +19,12 @@ class Authorizer extends Component {
 		}
 	};
 
-	componentDidMount() {
-		if (this.ref.current) {
-			this.ref.current.innerHTML = icon48;
-		}
-	}
-
 	render() {
 		return (
-			<section class={style.wrapper}>
-				<h2 class="miro-h2">Poker planning widget</h2>
-				<p class="miro-p">
-					To use the widget, please authorize it in your account
-				</p>
-				<div class={style.svgWrapper}>
-					<svg class={style.svg} ref={this.ref} />
-				</div>
+			<AppWelcome
+				title="Planning poker widget"
+				description="To use the widget, please authorize it in your account"
+			>
 				<button
 					type="button"
 					class="miro-btn miro-btn--primary miro-btn--medium"
@@ -45,7 +32,7 @@ class Authorizer extends Component {
 				>
 					Authorize app
 				</button>
-			</section>
+			</AppWelcome>
 		);
 	}
 }

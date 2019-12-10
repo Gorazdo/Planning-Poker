@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{bosY:function(o,t,n){"use strict";n.r(t);var r=n("hosL");t.default=function(o){function t(){return o.apply(this,arguments)||this}var n,e;e=o,(n=t).prototype=Object.create(e.prototype),n.prototype.constructor=n,n.__proto__=e;var p=t.prototype;return p.componentDidMount=function(){window.opener&&window.opener.miroAuthorized()},p.render=function(){return Object(r.f)("section",null,"Authorized!")},t}(r.a)}}]);
-//# sourceMappingURL=route-authorize-success.chunk.1fe6c.js.map
