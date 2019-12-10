@@ -6,10 +6,11 @@
 	"scripts": {
 		"start": "npm run -s serve",
 		"start:dev": "npm run -s dev",
-		"build": "preact build --template src/index.ejs && copyfiles now.json build",
+		"build": "preact build --template src/index.ejs",
 		"serve": "preact build && serve build --single",
 		"dev": "preact watch --template src/index.ejs ",
 		"lint": "eslint src",
+		"deploy": "copyfiles now.json build && cd build && now",
 		"test": "jest"
 	},
 	"eslintIgnore": [
