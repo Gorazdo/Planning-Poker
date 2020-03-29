@@ -43,10 +43,11 @@ class Controls extends Component {
 			.filter(widget => getMetadata(widget).type === 'card')
 			.map(widget => widget.id);
 
-		const deleted = miro.board.widgets.deleteById(allCardIds);
+		miro.board.widgets.deleteById(allCardIds);
+		// deleteById does not return a list of deleted ids
 
 		// eslint-disable-next-line no-console
-		console.log('deleted', deleted.length, 'cards');
+		console.log('deleted', allCardIds.length, 'cards');
 		if (typeof this.props.onClear === 'function') {
 			this.props.onClear();
 		}
