@@ -6,7 +6,7 @@ import AppWelcome from 'components/AppWelcome';
 import { APP_ID } from 'appconstants';
 
 const startApp = () => {
-	miro.board.openLibrary('Poker Planning', 'sidebar');
+	miro.board.openLibrary('Planning Poker', 'sidebar');
 	miro.board.ui.openBottomPanel('bottomPanel', { width: 250 });
 };
 
@@ -25,7 +25,7 @@ class Home extends Component {
 			miro.initialize({
 				extensionPoints: {
 					toolbar: {
-						title: 'Poker Planning',
+						title: 'Planning Poker',
 						toolbarSvgIcon: icon24,
 						librarySvgIcon: icon48,
 						onClick: async () => {

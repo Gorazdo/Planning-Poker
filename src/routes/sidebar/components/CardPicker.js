@@ -31,10 +31,10 @@ export default class Cards extends Component {
 		let url;
 		miro.board.ui.initDraggableItemsContainer(this.ref.current, {
 			draggableItemSelector: `.${style.card}`,
-			onClick: el => {
+			onClick: (el) => {
 				cardValue = el.dataset.value;
 			},
-			getDraggableItemPreview: el => {
+			getDraggableItemPreview: (el) => {
 				url = getBackCardUrl();
 				cardValue = el.dataset.value;
 				return {
@@ -69,7 +69,7 @@ export default class Cards extends Component {
 		this.checkCardExistence(widget.id);
 	};
 
-	checkCardExistence = async id => {
+	checkCardExistence = async (id) => {
 		try {
 			// if it's updating -- it exists
 			await miro.board.widgets.update([{ id }]);
@@ -88,7 +88,7 @@ export default class Cards extends Component {
 		this.setState({ showList: true });
 	};
 
-	clearChosenCard = stateCallback => {
+	clearChosenCard = (stateCallback) => {
 		this.setState({ chosenCardWidget: null, showList: true }, stateCallback);
 	};
 
@@ -109,14 +109,12 @@ export default class Cards extends Component {
 				miro.currentUser.getId(),
 				getCards(),
 			]);
-			const myCard = cards.find(widget => getMetadata(widget).author === id);
+			const myCard = cards.find((widget) => getMetadata(widget).author === id);
 			if (myCard) {
 				this.setChosenCard(myCard);
 			}
 			// eslint-disable-next-line react/no-did-mount-set-state
 			this.setState({ id, loading: false }, () => {
-				miro.onReady(this.onReady);
-				// const { WIDGETS_DELETED } = miro.enums.event;
 				// console.log(WIDGETS_DELETED);
 				// miro.addListener(WIDGETS_DELETED, this.onWidgetsDeleted);
 			});
@@ -129,19 +127,22 @@ export default class Cards extends Component {
 		}
 	};
 
-	onWidgetsDeleted = event => {
+	onWidgetsDeleted = (event) => {
 		const { data: widgets } = event;
 		const { chosenCardWidget } = this.state;
 		if (!chosenCardWidget) {
 			return false;
 		}
-		if (widgets.find(widget => widget.id === chosenCardWidget.id)) {
+		if (widgets.find((widget) => widget.id === chosenCardWidget.id)) {
 			this.clearChosenCard();
 		}
 	};
 
 	componentDidMount() {
-		this.init();
+		miro.onReady(() => {
+			this.onReady();
+			this.init();
+		});
 	}
 
 	render({}, { chosenCardWidget, showList, loading, error }) {
@@ -161,7 +162,7 @@ export default class Cards extends Component {
 					/>
 				</div>
 				<div ref={this.ref} class={style.wrapper}>
-					{!chosenCardWidget && !loading && <CardsList disabled={!showList} />}
+					{!chosenCardWidget && <CardsList disabled={!showList || loading} />}
 				</div>
 				{Boolean(chosenCardWidget) && (
 					<ChosenCard chosenCardWidget={chosenCardWidget} />
