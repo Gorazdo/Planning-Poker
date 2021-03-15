@@ -3,7 +3,7 @@ import { h, Component } from 'preact';
 import AppWelcome from 'components/AppWelcome';
 
 const authorizeOptions = {
-	response_type: 'token',
+	response_type: 'code',
 	redirect_uri: 'https://' + window.location.host + '/authorize-success',
 };
 
