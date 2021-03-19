@@ -4,7 +4,10 @@ import AppWelcome from 'components/AppWelcome';
 
 const authorizeOptions = {
 	response_type: 'code',
-	redirect_uri: 'https://' + window.location.host + '/authorize-success',
+	redirect_uri:
+		typeof window === 'object'
+			? '/confirm-app-install/'
+			: window.location.host + '/confirm-app-install/',
 };
 
 class Authorizer extends Component {

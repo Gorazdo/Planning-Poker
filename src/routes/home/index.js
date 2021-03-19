@@ -13,7 +13,7 @@ const startApp = () => {
 class Home extends Component {
 	get installationURL() {
 		const miroAuthURL = 'https://miro.com/oauth/authorize';
-		return `${miroAuthURL}?response_type=code&client_id=${APP_ID}&redirect_uri=${window.location.origin}/authorize-success&external=true`;
+		return `${miroAuthURL}?response_type=code&client_id=${APP_ID}&redirect_uri=/confirm-app-install/`;
 	}
 
 	handleInstall = () => {
