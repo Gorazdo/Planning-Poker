@@ -10,7 +10,6 @@ class Controls extends Component {
 			this.props.onBeforeReveal(event);
 		}
 		const cards = await getCards();
-
 		const backCards = cards.filter(
 			(widget) => getMetadata(widget).side === 'back'
 		);
@@ -27,6 +26,7 @@ class Controls extends Component {
 			};
 		});
 		await miro.board.widgets.update(updates);
+
 		if (typeof this.props.onReveal === 'function') {
 			this.props.onReveal();
 		}
