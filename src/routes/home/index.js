@@ -5,7 +5,7 @@ import icon48 from 'assets/icons/icon48.svg';
 import AppWelcome from 'components/AppWelcome';
 import { APP_ID } from 'appconstants';
 
-const startApp = () => {
+const openPokerPlanningApp = () => {
 	miro.board.openLibrary('Planning Poker', 'sidebar');
 	miro.board.ui.openBottomPanel('bottomPanel', { width: 250 });
 };
@@ -13,7 +13,12 @@ const startApp = () => {
 class Home extends Component {
 	get installationURL() {
 		const miroAuthURL = 'https://miro.com/oauth/authorize';
-		return `${miroAuthURL}?response_type=code&client_id=${APP_ID}&redirect_uri=/confirm-app-install/`;
+		const searchParams = new URLSearchParams({
+			response_type: 'code',
+			client_id: APP_ID,
+			redirect_uri: '/confirm-app-install/',
+		});
+		return `${miroAuthURL}?${searchParams}`;
 	}
 
 	handleInstall = () => {
@@ -31,12 +36,10 @@ class Home extends Component {
 						onClick: async () => {
 							const authorized = await miro.isAuthorized();
 							if (authorized) {
-								startApp();
+								openPokerPlanningApp();
 							} else {
-								const res = await miro.board.ui.openModal('authorize');
-								if (res === 'success') {
-									startApp();
-								}
+								await miro.requestAuthorization();
+								openPokerPlanningApp();
 							}
 						},
 					},

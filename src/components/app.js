@@ -5,11 +5,10 @@ import appStyle from './app.less';
 import Home from 'routes/home';
 import Sidebar from 'routes/sidebar';
 import BottomPanel from 'routes/bottomPanel';
-import Authorizer from 'routes/authorize';
 import AuthorizeSuccess from 'routes/authorize-success';
 
 export default class App extends Component {
-	handleRoute = e => {
+	handleRoute = (e) => {
 		this.currentUrl = e.url;
 	};
 
@@ -28,7 +27,6 @@ export default class App extends Component {
 					<Home path="/" />
 					<Sidebar path="/sidebar/" user="me" />
 					<BottomPanel path="/bottomPanel/" user="me" />
-					<Authorizer path="/authorize/" />
 					<AuthorizeSuccess path="/authorize-success/" />
 				</Router>
 			</div>

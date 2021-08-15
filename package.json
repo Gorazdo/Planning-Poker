@@ -6,19 +6,24 @@
 	"scripts": {
 		"start": "npm run -s serve",
 		"start:dev": "npm run -s dev",
+		"start:ngrok": "npm run stop && concurrently \"npm run start:dev\" \"npm run expose\"",
 		"build": "preact build --template src/index.ejs",
 		"serve": "preact build && serve build --single",
 		"dev": "preact watch --template src/index.ejs ",
 		"lint": "eslint src",
 		"deploy": "copyfiles now.json build && cd build && now",
-		"test": "jest"
+		"test": "jest",
+		"expose": "ngrok http 8080",
+		"stop": "kill-port 8080 && kill-port 4049 && kill-port 4040"
 	},
 	"eslintIgnore": [
 		"build/*"
 	],
 	"devDependencies": {
 		"babel-plugin-module-resolver": "^3.2.0",
+		"concurrently": "^6.2.1",
 		"copyfiles": "^2.1.1",
+		"cross-port-killer": "^1.3.0",
 		"dotenv-webpack": "^1.7.0",
 		"enzyme": "^3.10.0",
 		"enzyme-adapter-preact-pure": "^2.0.0",
@@ -30,6 +35,7 @@
 		"jest-preset-preact": "^1.0.0",
 		"less": "^3.10.3",
 		"less-loader": "^5.0.0",
+		"ngrok": "^4.1.0",
 		"per-env": "^1.0.2",
 		"preact-cli": "^3.0.0-rc.6",
 		"preact-render-spy": "^1.2.1",
