@@ -12,7 +12,6 @@
 		"semi": ["warn", "always"],
 		"brace-style": 0,
 		"quotes": ["warn", "single"],
-		"arrow-parens": ["warn", "as-needed"],
 		"arrow-body-style": [2, "as-needed"],
 		"comma-dangle": [1, "always-multiline"],
 		"no-redeclare": 2,

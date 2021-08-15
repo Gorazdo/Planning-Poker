@@ -5,17 +5,17 @@ import { getMetadata, updateMetadata } from 'utils/metadata';
 import getCardURL from 'utils/getCardURL';
 
 class Controls extends Component {
-	handleReveal = async event => {
+	handleReveal = async (event) => {
 		if (typeof this.props.onBeforeReveal === 'function') {
 			this.props.onBeforeReveal(event);
 		}
 		const cards = await getCards();
 
 		const backCards = cards.filter(
-			widget => getMetadata(widget).side === 'back'
+			(widget) => getMetadata(widget).side === 'back'
 		);
 
-		const updates = backCards.map(widget => {
+		const updates = backCards.map((widget) => {
 			const { id } = widget;
 			const { value } = getMetadata(widget);
 			return {
@@ -32,7 +32,7 @@ class Controls extends Component {
 		}
 	};
 
-	handleClear = async event => {
+	handleClear = async (event) => {
 		if (typeof this.props.onBeforeClear === 'function') {
 			this.props.onBeforeClear(event);
 		}
@@ -40,8 +40,8 @@ class Controls extends Component {
 		const cards = await getCards();
 
 		const allCardIds = cards
-			.filter(widget => getMetadata(widget).type === 'card')
-			.map(widget => widget.id);
+			.filter((widget) => getMetadata(widget).type === 'card')
+			.map((widget) => widget.id);
 
 		miro.board.widgets.deleteById(allCardIds);
 		// deleteById does not return a list of deleted ids

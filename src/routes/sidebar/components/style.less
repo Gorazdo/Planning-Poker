@@ -1,10 +1,7 @@
 .cardWrapper {
-	flex-grow: 1;
-	flex-basis: 33.3%;
 	padding: 0.5rem;
 	display: flex;
 	justify-content: center;
-
 	animation-name: appear;
 	animation-duration: 600ms;
 	animation-timing-function: ease-out;
@@ -13,11 +10,9 @@
 @keyframes appear {
 	from {
 		opacity: 0;
-		transform: scale(0.5);
 	}
 	to {
 		opacity: 1;
-		transform: scale(1);
 	}
 }
 
@@ -38,16 +33,16 @@
 
 .card {
 	display: flex;
-	width: 8em;
-	height: 12em;
-	border-radius: 1em;
-	font-size: 1em;
+	width: 5rem;
+	height: 7.5rem;
+	border-radius: 0.75rem;
 	align-items: center;
 	background-color: transparent;
+	background-repeat: no-repeat;
 	justify-content: center;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
 	will-change: transform;
-	transition: 200ms all;
+	transition: all 2000ms;
 	border: none;
 	cursor: grab;
 	&[disabled] {
@@ -71,9 +66,8 @@
 		animation-timing-function: ease-in-out;
 	}
 	&[data-loaded='no'] {
-		border: 2px solid #3e52d8;
+		border: 2px solid #1d2860;
 		background-color: #fff9df;
-		opacity: 0.5;
 		span {
 			font-size: large;
 		}
@@ -103,8 +97,8 @@
 
 .wrapper {
 	padding: 0.5rem 0.4rem;
-	display: flex;
-	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
 	font-size: 10px;
 	overflow-y: auto;
 }
