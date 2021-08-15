@@ -7,7 +7,7 @@
 		"start": "npm run -s serve",
 		"start:dev": "npm run -s dev",
 		"start:ngrok": "npm run stop && concurrently \"npm run start:dev\" \"npm run expose\"",
-		"build": "preact build --template src/index.ejs",
+		"build": "preact build --no-prerender --template src/index.ejs",
 		"serve": "preact build && serve build --single",
 		"dev": "preact watch --template src/index.ejs ",
 		"lint": "eslint src",
