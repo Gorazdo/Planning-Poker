@@ -18,30 +18,6 @@ And 3 extra crads: Infinity, Coffee-break and Question cards
 The cards are revealed, and the estimates are then discussed. By hiding the figures in this way, the group can avoid the cognitive bias of anchoring, where the first number spoken aloud sets a precedent for subsequent estimates. _from [Wiki](https://en.wikipedia.org/wiki/Planning_poker)_
 
 
-## CLI Commands (based on preact-default)
-
-```bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# test the production build locally
-npm run serve
-
-# run tests with jest and preact-render-spy
-npm run test
-```
-
-For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
-
-
 ## Authors
 
-Coding and deploy: Pavel Shchegolev (me)
-
-Design and the idea: Ann Tomova [Behance](https://www.behance.net/tomova)
+By Pavel and Anna from [Gorazdo.studio](https://gorazdo.studio/)
